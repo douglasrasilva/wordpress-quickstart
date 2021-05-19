@@ -21,13 +21,15 @@ fi
 
 mkdir -p /opt/app-root/downloads
 
-curl -Ls http://wordpress.org/wordpress-${WORDPRESS_INSTALL_VERSION}.tar.gz > /opt/app-root/downloads/wordpress.tar.gz
+#curl -Ls http://wordpress.org/wordpress-${WORDPRESS_INSTALL_VERSION}.tar.gz > /opt/app-root/downloads/wordpress.tar.gz
+curl -k -Ls https://wordpress.org/wordpress-${WORDPRESS_INSTALL_VERSION}.tar.gz > /opt/app-root/downloads/wordpress.tar.gz
 echo ${WORDPRESS_INSTALL_VERSION} > /opt/app-root/downloads/wordpress-version.txt
 
 # Verify the WordPress sources.
 
 TARBALL_MD5=$(md5sum /opt/app-root/downloads/wordpress.tar.gz | cut -d ' ' -f 1)
-EXPECTS_MD5=$(curl -Ls http://wordpress.org/wordpress-${WORDPRESS_INSTALL_VERSION}.tar.gz.md5)
+#EXPECTS_MD5=$(curl -Ls http://wordpress.org/wordpress-${WORDPRESS_INSTALL_VERSION}.tar.gz.md5)
+EXPECTS_MD5=$(curl -k -Ls https://wordpress.org/wordpress-${WORDPRESS_INSTALL_VERSION}.tar.gz.md5)
 
 if [ "${TARBALL_MD5}" != "${EXPECTS_MD5}" ]; then
     echo "ERROR: WordPress ${WORDPRESS_INSTALL_VERSION} MD5 checksum mismatch. The WordPress tar file that was downloaded does not match the signature that it was expected to have."
